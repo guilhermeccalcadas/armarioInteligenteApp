@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 
 const roupaSchema = new mongoose.Schema({
-  nome: { type: String },
+  nome: { 
+    type: String,
+    unique: true
+  },
   
   categoria: { 
     type: String, 
@@ -25,6 +28,7 @@ const roupaSchema = new mongoose.Schema({
     default: null
   }
 });
+
 
 const Roupa = mongoose.model('Roupa', roupaSchema);
 module.exports = Roupa;

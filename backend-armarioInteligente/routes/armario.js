@@ -31,5 +31,7 @@ const roupaController = require("../controller/roupaController");
 
 router.post('/roupa', upload.single('foto'), roupaController.addNewRoupa);
 router.get("/roupa", roupaController.getAllRoupa);
+router.delete("/roupa/delete-all", roupaController.deleteAll)
+router.delete("/roupa/by-id/:id", roupaController.deleteById)
 
 module.exports = router;
