@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Nova Roupa</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">upload-photo</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ion-content>
+
+
+
+<ion-content class="ion-padding">
+  <form [formGroup]="roupaForm" (ngSubmit)="submitForm()">
+    <ion-item>
+      <ion-label position="floating">Nome</ion-label>
+      <ion-input formControlName="nome"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Categoria</ion-label>
+      <ion-select formControlName="categoria">
+        <ion-select-option value="cabeça">Cabeça</ion-select-option>
+        <ion-select-option value="tronco">Tronco</ion-select-option>
+        <ion-select-option value="pernas">Pernas</ion-select-option>
+        <ion-select-option value="calçado">Calçado</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Cor</ion-label>
+      <ion-input formControlName="cor"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Tamanho</ion-label>
+      <ion-select formControlName="tamanho">
+        <ion-select-option value="XS">XS</ion-select-option>
+        <ion-select-option value="S">S</ion-select-option>
+        <ion-select-option value="M">M</ion-select-option>
+        <ion-select-option value="L">L</ion-select-option>
+        <ion-select-option value="XL">XL</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Marca</ion-label>
+      <ion-input formControlName="marca"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Foto</ion-label>
+      <input type="file" (change)="onFileChange($event)">
+    </ion-item>
+
+
+    <ion-button expand="full" type="submit" [disabled]="roupaForm.invalid">Guardar</ion-button>
+  </form>
+</ion-content>
+
