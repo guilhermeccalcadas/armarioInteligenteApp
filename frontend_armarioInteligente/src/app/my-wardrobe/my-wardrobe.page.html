@@ -10,7 +10,38 @@
       <ion-title size="large">myWardrobe</ion-title>
     </ion-toolbar>
   </ion-header>
-</ion-content>
 
-<ion-button (click)="goToUploadPhoto()">Upload New Photo</ion-button>
+  <div *ngIf="currentRoupa; else noRoupas" class="roupa-container">
+    <h2>{{ currentRoupa.nome || 'Sem nome' }}</h2>
+    <img *ngIf="currentRoupa.fotoUrl" [src]="currentRoupa.fotoUrl" alt="Foto da roupa" class="roupa-img" />
+    <p>Categoria: {{ currentRoupa.categoria }}</p>
+    <p>Cor: {{ currentRoupa.cor }}</p>
+    <p>Tamanho: {{ currentRoupa.tamanho }}</p>
+    <p>Marca: {{ currentRoupa.marca }}</p>
+    <p>Último uso: {{ currentRoupa.dataUltimoUso ? (currentRoupa.dataUltimoUso | date:'shortDate') : 'Nunca usado' }}</p>
+
+    <div class="buttons-container">
+      <ion-button (click)="showPrevious()" fill="outline" color="primary">&#8592; Anterior</ion-button>
+      <ion-button (click)="showNext()" fill="outline" color="primary">Próximo &#8594;</ion-button>
+      <ion-button (click)="goToUploadPhoto()" color="primary">Adicionar nova roupa</ion-button>
+      <ion-button (click)="deleteCurrentRoupa()" fill="clear" color="danger">Apagar roupa</ion-button>
+
+    </div>
+  </div>
+
+  <ng-template #noRoupas >
+    <div class="roupa-container">
+      <p>Não existem roupas para mostrar.</p>
+      <div class="buttons-container">
+        <ion-button (click)="showPrevious()" fill="outline" color="primary">&#8592; Anterior</ion-button>
+        <ion-button (click)="showNext()" fill="outline" color="primary">Próximo &#8594;</ion-button>
+        <ion-button (click)="goToUploadPhoto()" color="primary">Adicionar nova roupa</ion-button>
+        <ion-button (click)="deleteCurrentRoupa()" fill="clear" color="danger">Apagar roupa</ion-button>
+      </div>
+    </div>
+
+  </ng-template>
+
+
+</ion-content>
 

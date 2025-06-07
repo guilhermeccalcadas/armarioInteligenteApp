@@ -10,11 +10,7 @@
       <ion-title size="large">upload-photo</ion-title>
     </ion-toolbar>
   </ion-header>
-</ion-content>
-
-
-
-<ion-content class="ion-padding">
+  <ion-content class="ion-padding">
   <form [formGroup]="roupaForm" (ngSubmit)="submitForm()">
     <ion-item>
       <ion-label position="floating">Nome</ion-label>
@@ -61,4 +57,9 @@
     <ion-button expand="full" type="submit" [disabled]="roupaForm.invalid">Guardar</ion-button>
   </form>
 </ion-content>
+</ion-content>
+
+
+
+
 

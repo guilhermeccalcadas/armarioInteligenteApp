@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RoupaService } from '../services/roupa.service';
 
 @Component({
   selector: 'app-upload-photo',
@@ -9,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class UploadPhotoPage implements OnInit {
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private roupaService: RoupaService) {
     this.roupaForm = this.fb.group({
       nome: ['', Validators.required],
       categoria: ['', Validators.required],
@@ -35,23 +36,36 @@ export class UploadPhotoPage implements OnInit {
     }
   }
 
-  submitForm() {
-    if (this.roupaForm.valid) {
-      const formData = new FormData();
-      formData.append('nome', this.roupaForm.value.nome);
-      formData.append('categoria', this.roupaForm.value.categoria);
-      formData.append('cor', this.roupaForm.value.cor);
-      formData.append('tamanho', this.roupaForm.value.tamanho);
-      formData.append('marca', this.roupaForm.value.marca);
-      if (this.roupaForm.value.dataUltimoUso) {
-        formData.append('dataUltimoUso', this.roupaForm.value.dataUltimoUso);
-      }
-      if (this.selectedFile) {
-        formData.append('foto', this.selectedFile);
-      }
+submitForm() {
+  if (this.roupaForm.valid) {
+    const formData = new FormData();
+    formData.append('nome', this.roupaForm.value.nome);
+    formData.append('categoria', this.roupaForm.value.categoria);
+    formData.append('cor', this.roupaForm.value.cor);
+    formData.append('tamanho', this.roupaForm.value.tamanho);
+    formData.append('marca', this.roupaForm.value.marca);
 
-      // Aqui chamarias o teu serviço para enviar os dados ao backend
-      console.log('Dados prontos para enviar:', formData);
+    if (this.roupaForm.value.dataUltimoUso) {
+      formData.append('dataUltimoUso', this.roupaForm.value.dataUltimoUso);
     }
+
+    if (this.selectedFile) {
+      formData.append('foto', this.selectedFile);
+    }
+
+    // Chamar o serviço para enviar os dados
+    this.roupaService.adicionarRoupa(formData).subscribe({
+      next: (res) => {
+        console.log('Roupa adicionada com sucesso:', res);
+        // Aqui podes limpar o formulário ou mostrar uma mensagem ao utilizador
+        this.roupaForm.reset();
+        this.selectedFile = null;
+      },
+      error: (err) => {
+        console.error('Erro ao adicionar roupa:', err);
+      }
+    });
   }
+}
+
 }
